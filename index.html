@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Digital Engineering – Projektpartner | FHNW</title>
+<meta name="description" content="Vertiefungsrichtung Digital Engineering – offene Projekte bei unseren Projektpartnern."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #000000;
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+h1, h2, h3 { line-height: 1.15; }
+
+/* ============================================================
+   FHNW DESIGN TOKENS
+   ============================================================ */
+:root {
+  /* FHNW Primärfarben */
+  --gelb:        #fde70e;
+  --gelb-dark:   #e6d000;
+  --gelb-light:  #fffce0;
+  --gelb-mid:    rgba(253,231,14,0.25);
+  --gelb-line:   rgba(253,231,14,0.6);
+  --schwarz:     #000000;
+  --dunkelgrau:  #4c4c4c;
+  --grau:        #767573;
+  --hellgrau:    #F1F1EE;
+  --mouseover:   #deded9;
+  --weiss:       #ffffff;
+  --fehlerrot:   #df305b;
+
+  /* Typografie */
+  --font: 'Inter', 'Segoe UI', Arial, sans-serif;
+
+  /* Schatten */
+  --shadow-s:  0 2px 8px rgba(0,0,0,0.08);
+  --shadow-m:  0 4px 20px rgba(0,0,0,0.12);
+  --shadow-l:  0 8px 32px rgba(0,0,0,0.16);
+  --shadow-y:  0 6px 20px rgba(253,231,14,0.4);
+
+  /* Radien */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+  --r-full: 999px;
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--schwarz);
+  border-bottom: 4px solid var(--gelb);
+  box-shadow: var(--shadow-m);
+}
+.hdr-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.logo-mark {
+  width: 40px; height: 40px;
+  background: var(--gelb);
+  border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.logo-mark span {
+  font-weight: 900;
+  font-size: 15px;
+  color: var(--schwarz);
+  letter-spacing: -0.5px;
+}
+.logo-text strong {
+  display: block;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--gelb);
+  letter-spacing: -0.4px;
+  line-height: 1;
+}
+.logo-text small {
+  display: block;
+  font-size: 10px;
+  font-weight: 500;
+  color: #aaa;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+.hdr-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.hdr-nav a {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ddd;
+  padding: 7px 14px;
+  border-radius: var(--r-sm);
+  transition: color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+.hdr-nav a:hover {
+  color: var(--schwarz);
+  background: var(--gelb);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  background: var(--schwarz);
+  padding: 80px 24px 72px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 4px solid var(--gelb);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(253,231,14,0.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -80px;
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(253,231,14,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-inner { position: relative; z-index: 1; max-width: 820px; margin: 0 auto; }
+
+.hero-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--schwarz);
+  background: var(--gelb);
+  padding: 5px 16px;
+  border-radius: var(--r-full);
+  margin-bottom: 28px;
+}
+
+.hero-h1 {
+  font-size: clamp(2rem, 4.5vw, 3.6rem);
+  font-weight: 900;
+  color: var(--weiss);
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+.hero-h1 em {
+  font-style: normal;
+  color: var(--gelb);
+}
+
+.hero-sub {
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  color: #bbb;
+  max-width: 560px;
+  margin: 0 auto 36px;
+  font-weight: 400;
+}
+
+.btn-hero {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gelb);
+  color: var(--schwarz);
+  font-size: 14px;
+  font-weight: 800;
+  padding: 14px 30px;
+  border-radius: var(--r-full);
+  letter-spacing: 0.02em;
+  box-shadow: var(--shadow-y);
+  transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+.btn-hero:hover {
+  background: var(--gelb-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(253,231,14,0.45);
+  color: var(--schwarz);
+}
+
+/* ============================================================
+   SECTION WRAPPER
+   ============================================================ */
+.sec {
+  padding: 64px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.sec-alt {
+  background: var(--hellgrau);
+  border-top: 1px solid var(--mouseover);
+  border-bottom: 1px solid var(--mouseover);
+}
+.sec-alt .sec { padding: 64px 24px; }
+
+.sec-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dunkelgrau);
+  margin-bottom: 10px;
+}
+.sec-title {
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
+  font-weight: 900;
+  color: var(--schwarz);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+.sec-title em { font-style: normal; color: var(--dunkelgrau); }
+.sec-sub {
+  font-size: 15px;
+  color: var(--grau);
+  margin-bottom: 40px;
+}
+.sec-header { text-align: center; margin-bottom: 40px; }
+
+/* ============================================================
+   PROJECT GRID  — 4 × 5 Kacheln
+   ============================================================ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* Kachel */
+.tile {
+  background: var(--weiss);
+  border: 2px solid var(--mouseover);
+  border-radius: var(--r-lg);
+  padding: 24px 16px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 154px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform  0.22s cubic-bezier(0.16,1,0.3,1),
+    box-shadow 0.22s cubic-bezier(0.16,1,0.3,1),
+    border-color 0.22s;
+}
+
+/* Gelb-Fill Overlay on hover */
+.tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gelb);
+  opacity: 0;
+  transition: opacity 0.22s;
+  z-index: 0;
+}
+
+.tile:hover {
+  transform: translateY(-6px) scale(1.025);
+  box-shadow: var(--shadow-l), 0 0 0 2.5px var(--gelb);
+  border-color: var(--gelb);
+}
+.tile:hover::before { opacity: 1; }
+.tile:hover .tile-logo { filter: brightness(0); }
+.tile:hover .tile-name { color: var(--schwarz); }
+.tile:hover .tile-cat  { color: rgba(0,0,0,0.6); }
+.tile:hover .tile-arr  { opacity: 1; transform: translate(0,0); color: var(--schwarz); }
+
+.tile-logo {
+  position: relative; z-index: 1;
+  width: 88px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  transition: filter 0.22s;
+}
+.tile-logo svg { width: 100%; height: 100%; }
+
+.tile-name {
+  position: relative; z-index: 1;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--schwarz);
+  line-height: 1.3;
+  transition: color 0.22s;
+}
+.tile-cat {
+  position: relative; z-index: 1;
+  font-size: 11px;
+  color: var(--grau);
+  transition: color 0.22s;
+}
+.tile-arr {
+  position: absolute; z-index: 1;
+  bottom: 10px; right: 12px;
+  color: var(--schwarz);
+  opacity: 0;
+  transform: translate(3px, 3px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+/* Platzhalter-Kachel */
+.tile-ph {
+  background: var(--hellgrau);
+  border-style: dashed;
+  border-color: var(--mouseover);
+  opacity: 0.55;
+  pointer-events: none;
+  cursor: default;
+}
+.tile-ph .tile-name { color: var(--grau); font-weight: 500; }
+
+/* ============================================================
+   PROJECT DETAIL SEITEN
+   ============================================================ */
+.proj-wrap {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.proj-section {
+  padding: 64px 0 80px;
+  border-top: 4px solid var(--gelb);
+  background: var(--weiss);
+}
+.proj-section:nth-child(even) {
+  background: var(--hellgrau);
+}
+
+/* Zurück-Button */
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--schwarz);
+  background: var(--gelb);
+  border: 2px solid var(--gelb-dark);
+  padding: 8px 16px;
+  border-radius: var(--r-sm);
+  margin-bottom: 32px;
+  transition: background 0.15s, border-color 0.15s;
+}
+.back:hover {
+  background: var(--gelb-dark);
+  border-color: var(--schwarz);
+  color: var(--schwarz);
+}
+.back svg { flex-shrink: 0; }
+
+/* Projekt-Header */
+.proj-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding-bottom: 28px;
+  margin-bottom: 36px;
+  border-bottom: 3px solid var(--gelb);
+}
+.proj-logo-box {
+  width: 90px; height: 60px;
+  flex-shrink: 0;
+  background: var(--weiss);
+  border: 2px solid var(--mouseover);
+  border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  padding: 10px;
+}
+.proj-logo-box svg { max-width: 100%; max-height: 100%; }
+.proj-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dunkelgrau);
+  margin-bottom: 6px;
+}
+.proj-title {
+  font-size: clamp(1.2rem, 2.2vw, 1.65rem);
+  font-weight: 900;
+  color: var(--schwarz);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.proj-tag {
+  font-size: 14px;
+  color: var(--grau);
+}
+
+/* 3-Spalten Inhalt */
+.proj-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.proj-card {
+  background: var(--weiss);
+  border: 2px solid var(--mouseover);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.proj-section:nth-child(even) .proj-card { background: var(--weiss); }
+.proj-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--gelb);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+.proj-card:hover { box-shadow: var(--shadow-m); border-color: var(--gelb); }
+.proj-card:hover::after { transform: scaleX(1); }
+
+.card-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dunkelgrau);
+  margin-bottom: 12px;
+}
+.card-letter {
+  width: 22px; height: 22px;
+  background: var(--gelb);
+  color: var(--schwarz);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+.card-h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--schwarz);
+  margin-bottom: 10px;
+  line-height: 1.25;
+}
+.card-body {
+  font-size: 14px;
+  color: var(--dunkelgrau);
+  line-height: 1.75;
+}
+.card-body p + p { margin-top: 10px; }
+
+/* Bewerben-CTA */
+.proj-apply {
+  margin-top: 36px;
+  display: flex;
+  justify-content: flex-end;
+}
+.btn-apply {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--schwarz);
+  color: var(--gelb);
+  font-size: 14px;
+  font-weight: 800;
+  padding: 14px 28px;
+  border-radius: var(--r-full);
+  letter-spacing: 0.02em;
+  box-shadow: var(--shadow-m);
+  transition: background 0.15s, transform 0.15s, box-shadow 0.15s, color 0.15s;
+  border: 2px solid var(--gelb);
+}
+.btn-apply:hover {
+  background: var(--gelb);
+  color: var(--schwarz);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(253,231,14,0.35);
+}
+
+/* ============================================================
+   MICROSOFT FORMS MODAL (CSS :target)
+   ============================================================ */
+
+/* Hintergrund-Overlay */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+/* :target öffnet das Modal */
+.modal-overlay:target {
+  display: flex;
+}
+
+.modal-box {
+  background: var(--weiss);
+  border-radius: var(--r-xl);
+  border-top: 4px solid var(--gelb);
+  max-width: 680px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-l);
+  position: relative;
+}
+.modal-header {
+  padding: 24px 28px 16px;
+  border-bottom: 1px solid var(--mouseover);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.modal-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--schwarz);
+  letter-spacing: -0.02em;
+}
+.modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--hellgrau);
+  color: var(--dunkelgrau);
+  font-size: 18px;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: background 0.15s;
+  line-height: 1;
+}
+.modal-close:hover { background: var(--mouseover); color: var(--schwarz); }
+.modal-body {
+  padding: 0;
+}
+.modal-body iframe {
+  width: 100%;
+  height: 560px;
+  border: none;
+  border-radius: 0 0 var(--r-xl) var(--r-xl);
+}
+/* Fallback-Text wenn Forms nicht geladen */
+.forms-fallback {
+  padding: 28px;
+  display: none;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  background: var(--schwarz);
+  color: #aaa;
+  padding: 48px 24px;
+  border-top: 4px solid var(--gelb);
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.footer-logo-mark {
+  width: 40px; height: 40px;
+  background: var(--gelb);
+  border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+}
+.footer-logo-mark span { font-weight: 900; font-size: 15px; color: var(--schwarz); }
+.footer-brand { font-size: 18px; font-weight: 900; color: var(--gelb); }
+.footer-sep { width: 1px; height: 40px; background: #333; flex-shrink: 0; }
+.footer-info { font-size: 12px; line-height: 1.7; }
+.footer-info a { color: #aaa; }
+.footer-info a:hover { color: var(--gelb); }
+.footer-copy { font-size: 11px; color: #555; text-align: right; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+  .proj-cols { grid-template-columns: 1fr; gap: 14px; }
+  .proj-head { flex-direction: column; gap: 14px; }
+}
+
+@media (max-width: 768px) {
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .tile { min-height: 130px; padding: 18px 12px 16px; }
+  .hdr-nav a:not(:last-child) { display: none; }
+  .footer-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .footer-sep { display: none; }
+  .footer-copy { text-align: left; }
+  .proj-apply { justify-content: stretch; }
+  .btn-apply { width: 100%; justify-content: center; }
+  .modal-box { max-height: 95vh; }
+  .modal-body iframe { height: 480px; }
+}
+
+@media (max-width: 480px) {
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .tile { min-height: 110px; }
+  .hero { padding: 56px 16px 52px; }
+  .sec { padding: 48px 16px; }
+}
+
+/* ============================================================
+   PRINT
+   ============================================================ */
+@media print {
+  .hdr { position: static; }
+  .tile { break-inside: avoid; }
+  .proj-section { break-before: page; }
+  .modal-overlay { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="hdr" id="top">
+  <div class="hdr-inner">
+    <a href="#top" class="logo">
+      <div class="logo-mark"><span>FH</span></div>
+      <div class="logo-text">
+        <strong>FHNW</strong>
+        <small>Fachhochschule Nordwestschweiz</small>
+      </div>
+    </a>
+    <nav class="hdr-nav">
+      <a href="#projekte">Projekte</a>
+      <a href="https://www.fhnw.ch/de/studium/technik/wirtschaftsingenieurwesen" target="_blank" rel="noopener">Studiengang</a>
+      <a href="mailto:andreas.lorenz@fhnw.ch">Kontakt</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="heroBereich">
+  <div class="hero-inner">
+    <span class="hero-tag">FHNW &middot; Hochschule f&uuml;r Technik &middot; Wirtschaftsingenieurwesen &middot; Semester 5</span>
+    <h1 class="hero-h1">
+      Herzlich willkommen in der<br>
+      Vertiefungsrichtung:<br>
+      <em>&laquo;Digital Engineering&raquo;</em>
+    </h1>
+    <p class="hero-sub">
+      Entdecken Sie spannende Praxisprojekte bei unseren Projektpartnern
+      &ndash; und gestalten Sie die digitale Transformation aktiv mit.
+    </p>
+    <a href="#projekte" class="btn-hero">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      Projekte entdecken
+    </a>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROJEKTKACHELN
+     ============================================================ -->
+<div id="projekte">
+<div class="sec">
+  <div class="sec-header">
+    <p class="sec-label">Projektpartner &middot; Herbstsemester 2026/2027</p>
+    <h2 class="sec-title">Offene Themen für P5-Projekte</h2>
+    <p class="sec-sub">Klicken Sie auf ein Unternehmen, um das Projekt zu entdecken.</p>
+  </div>
+
+  <div class="grid">
+
+    <!-- 1 ELCO -->
+    <a href="#projektElco" class="tile">
+      <div class="tile-logo">
+        <svg viewBox="0 0 110 36" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="28" font-family="Inter,Arial,sans-serif" font-weight="900" font-size="30" fill="#000000" letter-spacing="-1">ELCO</text>
+        </svg>
+      </div>
+      <span class="tile-name">ELCO Group</span>
+      <span class="tile-cat">KI-Transformation</span>
+      <svg class="tile-arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+
+    <!-- 2 FHNW BI -->
+    <a href="#projektBi" class="tile">
+      <div class="tile-logo">
+        <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="3" width="34" height="34" rx="4" fill="#000000"/>
+          <text x="5" y="27" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="15" fill="#fde70e">FH</text>
+          <text x="40" y="27" font-family="Inter,Arial,sans-serif" font-weight="700" font-size="14" fill="#000000">Portfolio BI</text>
+        </svg>
+      </div>
+      <span class="tile-name">FHNW Projektportfolio BI</span>
+      <span class="tile-cat">Business Intelligence</span>
+      <svg class="tile-arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+
+    <!-- 3 Ansatz -->
+    <a href="#projektAnsatz" class="tile">
+      <div class="tile-logo">
+        <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="18" fill="#000000"/>
+          <text x="10" y="25" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="13" fill="#fde70e">AN</text>
+          <text x="44" y="25" font-family="Inter,Arial,sans-serif" font-weight="700" font-size="15" fill="#000000">ANSATZ</text>
+        </svg>
+      </div>
+      <span class="tile-name">Ansatz AG</span>
+      <span class="tile-cat">Digitalisierung</span>
+      <svg class="tile-arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+
+    <!-- 4 KI-Tutor -->
+    <a href="#projektKitutor" class="tile">
+      <div class="tile-logo">
+        <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="3" width="34" height="34" rx="4" fill="#000000"/>
+          <text x="5" y="27" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="15" fill="#fde70e">FH</text>
+          <text x="40" y="27" font-family="Inter,Arial,sans-serif" font-weight="700" font-size="14" fill="#000000">KI-Tutor</text>
+        </svg>
+      </div>
+      <span class="tile-name">FHNW KI-Tutor</span>
+      <span class="tile-cat">K&uuml;nstliche Intelligenz</span>
+      <svg class="tile-arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+
+    <!-- 5 Assisto -->
+    <a href="#projektAssisto" class="tile">
+      <div class="tile-logo">
+        <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="3" width="34" height="34" rx="5" fill="#4c4c4c"/>
+          <text x="5" y="27" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="14" fill="white">AS</text>
+          <text x="40" y="27" font-family="Inter,Arial,sans-serif" font-weight="700" font-size="13" fill="#000000">ASSISTO</text>
+        </svg>
+      </div>
+      <span class="tile-name">Assisto Holding AG</span>
+      <span class="tile-cat">Hotellerie &amp; Tech</span>
+      <svg class="tile-arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+
+    <!-- 6 Ernedo -->
+    <a href="#projektErnedo" class="tile">
+      <div class="tile-logo">
+        <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="18,3 34,12 34,30 18,39 2,30 2,12" fill="#4c4c4c"/>
+          <text x="9" y="25" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="12" fill="white">ER</text>
+          <text x="40" y="26" font-family="Inter,Arial,sans-serif" font-weight="700" font-size="13" fill="#000000">ERNEDO</text>
+        </svg>
+      </div>
+      <span class="tile-name">Ernedo Verein</span>
+      <span class="tile-cat">Soziales &amp; Digital</span>
+      <svg class="tile-arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+
+    <!-- 7 ITRIS -->
+    <a href="#projektItris" class="tile">
+      <div class="tile-logo">
+        <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="3" width="34" height="34" rx="4" fill="#000000"/>
+          <text x="6" y="27" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="14" fill="#fde70e">IT</text>
+          <text x="40" y="27" font-family="Inter,Arial,sans-serif" font-weight="700" font-size="13" fill="#000000">ITRIS ONE</text>
+        </svg>
+      </div>
+      <span class="tile-name">ITRIS One AG</span>
+      <span class="tile-cat">CRM &amp; Software</span>
+      <svg class="tile-arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+
+    <!-- 8 Burki Scherer -->
+    <a href="#projektBurki" class="tile">
+      <div class="tile-logo">
+        <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="3" width="34" height="34" fill="#4c4c4c"/>
+          <text x="3" y="27" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="12" fill="#fde70e">B+S</text>
+          <text x="40" y="20" font-family="Inter,Arial,sans-serif" font-weight="700" font-size="10" fill="#000000">BURKI</text>
+          <text x="40" y="33" font-family="Inter,Arial,sans-serif" font-weight="700" font-size="10" fill="#000000">SCHERER</text>
+        </svg>
+      </div>
+      <span class="tile-name">Burki Scherer AG</span>
+      <span class="tile-cat">Kreativagentur &amp; KI</span>
+      <svg class="tile-arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+
+    <!-- 9–20 Platzhalter -->
+    <div class="tile tile-ph">
+      <div class="tile-logo"><svg viewBox="0 0 60 36"><rect x="8" y="6" width="44" height="24" rx="4" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/><text x="22" y="23" font-family="Arial" font-size="13" fill="#bbb">?</text></svg></div>
+      <span class="tile-name">Folgt in K&uuml;rze</span><span class="tile-cat">Projekt 9</span>
+    </div>
+    <div class="tile tile-ph">
+      <div class="tile-logo"><svg viewBox="0 0 60 36"><rect x="8" y="6" width="44" height="24" rx="4" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/><text x="22" y="23" font-family="Arial" font-size="13" fill="#bbb">?</text></svg></div>
+      <span class="tile-name">Folgt in K&uuml;rze</span><span class="tile-cat">Projekt 10</span>
+    </div>
+    <div class="tile tile-ph">
+      <div class="tile-logo"><svg viewBox="0 0 60 36"><rect x="8" y="6" width="44" height="24" rx="4" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/><text x="22" y="23" font-family="Arial" font-size="13" fill="#bbb">?</text></svg></div>
+      <span class="tile-name">Folgt in K&uuml;rze</span><span class="tile-cat">Projekt 11</span>
+    </div>
+    <div class="tile tile-ph">
+      <div class="tile-logo"><svg viewBox="0 0 60 36"><rect x="8" y="6" width="44" height="24" rx="4" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/><text x="22" y="23" font-family="Arial" font-size="13" fill="#bbb">?</text></svg></div>
+      <span class="tile-name">Folgt in K&uuml;rze</span><span class="tile-cat">Projekt 12</span>
+    </div>
+    <div class="tile tile-ph">
+      <div class="tile-logo"><svg viewBox="0 0 60 36"><rect x="8" y="6" width="44" height="24" rx="4" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/><text x="22" y="23" font-family="Arial" font-size="13" fill="#bbb">?</text></svg></div>
+      <span class="tile-name">Folgt in K&uuml;rze</span><span class="tile-cat">Projekt 13</span>
+    </div>
+    <div class="tile tile-ph">
+      <div class="tile-logo"><svg viewBox="0 0 60 36"><rect x="8" y="6" width="44" height="24" rx="4" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/><text x="22" y="23" font-family="Arial" font-size="13" fill="#bbb">?</text></svg></div>
+      <span class="tile-name">Folgt in K&uuml;rze</span><span class="tile-cat">Projekt 14</span>
+    </div>
+    <div class="tile tile-ph">
+      <div class="tile-logo"><svg viewBox="0 0 60 36"><rect x="8" y="6" width="44" height="24" rx="4" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/><text x="22" y="23" font-family="Arial" font-size="13" fill="#bbb">?</text></svg></div>
+      <span class="tile-name">Folgt in K&uuml;rze</span><span class="tile-cat">Projekt 15</span>
+    </div>
+    <div class="tile tile-ph">
+      <div class="tile-logo"><svg viewBox="0 0 60 36"><rect x="8" y="6" width="44" height="24" rx="4" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/><text x="22" y="23" font-family="Arial" font-size="13" fill="#bbb">?</text></svg></div>
+      <span class="tile-name">Folgt in K&uuml;rze</span><span class="tile-cat">Projekt 16</span>
+    </div>
+    <div class="tile tile-ph">
+      <div class="tile-logo"><svg viewBox="0 0 60 36"><rect x="8" y="6" width="44" height="24" rx="4" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/><text x="22" y="23" font-family="Arial" font-size="13" fill="#bbb">?</text></svg></div>
+      <span class="tile-name">Folgt in K&uuml;rze</span><span class="tile-cat">Projekt 17</span>
+    </div>
+    <div class="tile tile-ph">
+      <div class="tile-logo"><svg viewBox="0 0 60 36"><rect x="8" y="6" width="44" height="24" rx="4" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/><text x="22" y="23" font-family="Arial" font-size="13" fill="#bbb">?</text></svg></div>
+      <span class="tile-name">Folgt in K&uuml;rze</span><span class="tile-cat">Projekt 18</span>
+    </div>
+    <div class="tile tile-ph">
+      <div class="tile-logo"><svg viewBox="0 0 60 36"><rect x="8" y="6" width="44" height="24" rx="4" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/><text x="22" y="23" font-family="Arial" font-size="13" fill="#bbb">?</text></svg></div>
+      <span class="tile-name">Folgt in K&uuml;rze</span><span class="tile-cat">Projekt 19</span>
+    </div>
+    <div class="tile tile-ph">
+      <div class="tile-logo"><svg viewBox="0 0 60 36"><rect x="8" y="6" width="44" height="24" rx="4" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/><text x="22" y="23" font-family="Arial" font-size="13" fill="#bbb">?</text></svg></div>
+      <span class="tile-name">Folgt in K&uuml;rze</span><span class="tile-cat">Projekt 20</span>
+    </div>
+
+  </div><!-- /grid -->
+</div><!-- /sec -->
+</div><!-- /projekte -->
+
+
+<!-- ============================================================
+     PROJEKT 1: ELCO Group
+     ============================================================ -->
+<section class="proj-section" id="projektElco">
+  <div class="proj-wrap">
+    <a href="#projekte" class="back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      &#8593; zur&uuml;ck
+    </a>
+    <div class="proj-head">
+      <div class="proj-logo-box">
+        <svg viewBox="0 0 100 32" width="80"><text x="0" y="25" font-family="Inter,Arial,sans-serif" font-weight="900" font-size="26" fill="#000000" letter-spacing="-1">ELCO</text></svg>
+      </div>
+      <div>
+        <p class="proj-num">Projekt 01 &middot; Herbstsemester 2026/27</p>
+        <h2 class="proj-title">ELCO Group &ndash; KI-gest&uuml;tzte Unternehmenstransformation</h2>
+        <p class="proj-tag">Digitale Reifegradanalyse und KI-Pilotprojekt bei einem f&uuml;hrenden Schweizer Papierprodukte-Unternehmen</p>
+      </div>
+    </div>
+    <div class="proj-cols">
+      <div class="proj-card">
+        <div class="card-label"><span class="card-letter">A</span>Ausgangslage</div>
+        <h3 class="card-h3">Das Unternehmen</h3>
+        <div class="card-body">
+          <p>Die Elco AG ist ein f&uuml;hrendes Schweizer Familienunternehmen der Wipf Gruppe mit Spezialisierung auf innovative Papierprodukte und Verpackungsl&ouml;sungen: hochwertige Briefumschl&auml;ge, anspruchsvolle Packaging-L&ouml;sungen und Papiertragetaschen.</p>
+          <p>Das Unternehmen besch&auml;ftigt &uuml;ber 250 Mitarbeitende. KI-Potenziale wurden bisher erst punktuell ausgelotet &ndash; die Organisation befindet sich in einer fr&uuml;hen, explorativen Phase des KI-Reifegrades.</p>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="card-label"><span class="card-letter">B</span>Zielsetzung</div>
+        <h3 class="card-h3">Projektziele</h3>
+        <div class="card-body">
+          <p>Ziel ist es, einen exemplarischen Use Case &ndash; z.B. einen KI-Agenten f&uuml;r die Angebots- oder Auftragsabwicklung oder eine automatisierte Datenschnittstelle zwischen Vertrieb, Produktion und Logistik &ndash; zu entwickeln und den konkreten Nutzen zu demonstrieren.</p>
+          <p>Auf Basis einer Feasibility-Matrix sollen KI-Use-Cases hinsichtlich Business Impact und Umsetzungsaufwand bewertet werden.</p>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="card-label"><span class="card-letter">C</span>Vorgehensweise</div>
+        <h3 class="card-h3">Projektplan</h3>
+        <div class="card-body">
+          <p>Das Projekt wird von Studierenden im 5. Semester Wirtschaftsingenieurwesen durchgef&uuml;hrt, betreut durch Prof. Dr. Andreas Lorenz.</p>
+          <p>Laufzeit: <strong>14. September 2026 &ndash; 5. Februar 2027</strong>. Zuteilung bis 10. Juni 2026. Umfang: IST-Analyse, KI-Reifegraderhebung, Feasibility-Matrix, Prototyp, Pr&auml;sentation.</p>
+        </div>
+      </div>
+    </div>
+    <div class="proj-apply">
+      <a href="#bewerbungElco" class="btn-apply">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Hierf&uuml;r bewerben
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROJEKT 2: FHNW Projektportfolio BI
+     ============================================================ -->
+<section class="proj-section" id="projektBi">
+  <div class="proj-wrap">
+    <a href="#projekte" class="back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      &#8593; zur&uuml;ck
+    </a>
+    <div class="proj-head">
+      <div class="proj-logo-box"><svg viewBox="0 0 52 52" width="44"><rect width="52" height="52" rx="4" fill="#000000"/><text x="6" y="35" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="20" fill="#fde70e">FH</text></svg></div>
+      <div>
+        <p class="proj-num">Projekt 02 &middot; Herbstsemester 2026/27</p>
+        <h2 class="proj-title">FHNW Projektportfolio Business Intelligence</h2>
+        <p class="proj-tag">Datengetriebene Entscheidungsunterst&uuml;tzung f&uuml;r Hochschulprozesse durch BI-Analysen und Dashboards</p>
+      </div>
+    </div>
+    <div class="proj-cols">
+      <div class="proj-card"><div class="card-label"><span class="card-letter">A</span>Ausgangslage</div><h3 class="card-h3">Interne Hochschulprozesse</h3><div class="card-body"><p>Die FHNW verwaltet als Fachhochschule mit &uuml;ber 10 Hochschulen und mehreren tausend Studierenden eine grosse Menge an Prozess- und Projektdaten. Diese liegen in verschiedenen Systemen verteilt vor und werden manuell ausgewertet.</p><p>Im Bereich der Studierendenprojekte fehlt eine zentrale Auswertung des Projektportfolios &uuml;ber Semester hinweg.</p></div></div>
+      <div class="proj-card"><div class="card-label"><span class="card-letter">B</span>Zielsetzung</div><h3 class="card-h3">BI-L&ouml;sung entwickeln</h3><div class="card-body"><p>Ziel ist die Entwicklung einer Business Intelligence L&ouml;sung f&uuml;r eine systematische Auswertung und Visualisierung des FHNW-Projektportfolios. Kennzahlen zu Projektstatus, Partnerzufriedenheit und Studierendenleistung sollen auf interaktiven Dashboards zug&auml;nglich sein.</p></div></div>
+      <div class="proj-card"><div class="card-label"><span class="card-letter">C</span>Vorgehensweise</div><h3 class="card-h3">Schrittweise Umsetzung</h3><div class="card-body"><p>Drei Phasen: Datenerhebung &amp; -strukturierung, ETL-Prozessentwicklung sowie Dashboard-Implementierung. Technologiestack: Power BI oder Tableau mit relationaler Datenbank.</p><p>Laufzeit: September 2026 &ndash; Februar 2027, betreut durch Prof. Dr. Andreas Lorenz.</p></div></div>
+    </div>
+    <div class="proj-apply">
+      <a href="#bewerbungBi" class="btn-apply">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Hierf&uuml;r bewerben
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROJEKT 3: Ansatz AG
+     ============================================================ -->
+<section class="proj-section" id="projektAnsatz">
+  <div class="proj-wrap">
+    <a href="#projekte" class="back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      &#8593; zur&uuml;ck
+    </a>
+    <div class="proj-head">
+      <div class="proj-logo-box"><svg viewBox="0 0 52 52" width="44"><circle cx="26" cy="26" r="24" fill="#000000"/><text x="10" y="33" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="17" fill="#fde70e">AN</text></svg></div>
+      <div>
+        <p class="proj-num">Projekt 03 &middot; Herbstsemester 2026/27</p>
+        <h2 class="proj-title">Ansatz AG &ndash; Digitale Transformation mittelst&auml;ndischer Unternehmen</h2>
+        <p class="proj-tag">Prozessanalyse und digitale L&ouml;sungskonzepte f&uuml;r KMU im Bereich Dienstleistung und Beratung</p>
+      </div>
+    </div>
+    <div class="proj-cols">
+      <div class="proj-card"><div class="card-label"><span class="card-letter">A</span>Ausgangslage</div><h3 class="card-h3">Transformationsbedarf</h3><div class="card-body"><p>Die Ansatz AG begleitet KMU bei ihrer digitalen Transformation. Sie m&ouml;chte ihre eigenen internen Prozesse und Beratungsmethoden durch den Einsatz moderner Technologien wie KI und Automatisierung optimieren.</p></div></div>
+      <div class="proj-card"><div class="card-label"><span class="card-letter">B</span>Zielsetzung</div><h3 class="card-h3">Konkrete Verbesserungen</h3><div class="card-body"><p>Ausgew&auml;hlte Gesch&auml;ftsprozesse analysieren und Optimierungsvorschl&auml;ge mit digitalen L&ouml;sungsans&auml;tzen erarbeiten. Fokus: Prozessautomatisierung, CRM-Einsatz und datenbasierte Entscheidungsunterst&uuml;tzung plus lauff&auml;higer Prototyp.</p></div></div>
+      <div class="proj-card"><div class="card-label"><span class="card-letter">C</span>Vorgehensweise</div><h3 class="card-h3">Agile Umsetzung</h3><div class="card-body"><p>Agiles Vorgehensmodell in zweiwöchigen Sprints. Regelm&auml;ssige Abstimmungsmeetings mit der Ansatz AG. Laufzeit: September 2026 &ndash; Februar 2027. Betreuung: Prof. Dr. Andreas Lorenz, FHNW.</p></div></div>
+    </div>
+    <div class="proj-apply">
+      <a href="#bewerbungAnsatz" class="btn-apply">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Hierf&uuml;r bewerben
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROJEKT 4: FHNW KI-Tutor
+     ============================================================ -->
+<section class="proj-section" id="projektKitutor">
+  <div class="proj-wrap">
+    <a href="#projekte" class="back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      &#8593; zur&uuml;ck
+    </a>
+    <div class="proj-head">
+      <div class="proj-logo-box"><svg viewBox="0 0 52 52" width="44"><rect width="52" height="52" rx="4" fill="#000000"/><text x="6" y="35" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="20" fill="#fde70e">FH</text></svg></div>
+      <div>
+        <p class="proj-num">Projekt 04 &middot; Herbstsemester 2026/27</p>
+        <h2 class="proj-title">FHNW KI-Tutor &ndash; Intelligentes Lernsystem</h2>
+        <p class="proj-tag">Entwicklung eines KI-gest&uuml;tzten Tutorsystems zur Unterst&uuml;tzung von Studierenden im Selbststudium</p>
+      </div>
+    </div>
+    <div class="proj-cols">
+      <div class="proj-card"><div class="card-label"><span class="card-letter">A</span>Ausgangslage</div><h3 class="card-h3">Lernunterst&uuml;tzung mit KI</h3><div class="card-body"><p>Die FHNW m&ouml;chte die Qualit&auml;t des Selbststudiums durch KI-basierte Tutorsysteme verbessern. Aktuelle Lernplattformen reagieren nicht adaptiv auf den individuellen Lernfortschritt.</p></div></div>
+      <div class="proj-card"><div class="card-label"><span class="card-letter">B</span>Zielsetzung</div><h3 class="card-h3">Prototyp entwickeln</h3><div class="card-body"><p>Konzeption und prototypische Umsetzung eines KI-Tutors f&uuml;r ein ausgew&auml;hltes Studienfach (z.B. Datenstrukturen oder Business Applications) auf Basis von LLM-Technologie, integrierbar in eine bestehende Lernplattform.</p></div></div>
+      <div class="proj-card"><div class="card-label"><span class="card-letter">C</span>Vorgehensweise</div><h3 class="card-h3">Iterative Entwicklung</h3><div class="card-body"><p>Anforderungserhebung &rarr; technische Konzeption (RAG, Prompt Engineering) &rarr; Implementierung &rarr; Pilottest. Laufzeit: September 2026 &ndash; Februar 2027. Betreuung: Prof. Dr. Andreas Lorenz.</p></div></div>
+    </div>
+    <div class="proj-apply">
+      <a href="#bewerbungKitutor" class="btn-apply">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Hierf&uuml;r bewerben
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROJEKT 5: Assisto Holding AG
+     ============================================================ -->
+<section class="proj-section" id="projektAssisto">
+  <div class="proj-wrap">
+    <a href="#projekte" class="back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      &#8593; zur&uuml;ck
+    </a>
+    <div class="proj-head">
+      <div class="proj-logo-box"><svg viewBox="0 0 52 52" width="44"><rect width="52" height="52" rx="6" fill="#4c4c4c"/><text x="6" y="34" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="18" fill="white">AS</text></svg></div>
+      <div>
+        <p class="proj-num">Projekt 05 &middot; Herbstsemester 2026/27</p>
+        <h2 class="proj-title">Assisto Holding AG &ndash; Digitale Hotellerie-Services</h2>
+        <p class="proj-tag">Entwicklung datengest&uuml;tzter L&ouml;sungen im Bereich Hotellerie und Assistenzdienstleistungen</p>
+      </div>
+    </div>
+    <div class="proj-cols">
+      <div class="proj-card"><div class="card-label"><span class="card-letter">A</span>Ausgangslage</div><h3 class="card-h3">Hotellerie &amp; Technologie</h3><div class="card-body"><p>Die Assisto Holding AG ist im Bereich pers&ouml;nlicher Assistenz- und Hotellerie-Dienstleistungen t&auml;tig. Koordination von Eins&auml;tzen, Dokumentation von Leistungen sowie Kommunikation mit Klienten bieten grosses Digitalisierungspotenzial.</p></div></div>
+      <div class="proj-card"><div class="card-label"><span class="card-letter">B</span>Zielsetzung</div><h3 class="card-h3">Operative Verbesserung</h3><div class="card-body"><p>Digitalisierung klar definierter Prozesse: automatisierte Einsatzplanung, digitales Leistungserfassungssystem oder KI-gest&uuml;tzte Kommunikationsunterst&uuml;tzung. Ergebnis: Machbarkeitsstudie + Prototyp.</p></div></div>
+      <div class="proj-card"><div class="card-label"><span class="card-letter">C</span>Vorgehensweise</div><h3 class="card-h3">Human-Centered Design</h3><div class="card-body"><p>Nutzerzentrierter Ansatz: Interviews mit Betreuungspersonal und Klienten, Anforderungsableitung, iterative Umsetzung. Besonderes Augenmerk auf Datenschutzanforderungen im Hotelleriebereich. Laufzeit bis Februar 2027.</p></div></div>
+    </div>
+    <div class="proj-apply">
+      <a href="#bewerbungAssisto" class="btn-apply">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Hierf&uuml;r bewerben
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROJEKT 6: Ernedo Verein
+     ============================================================ -->
+<section class="proj-section" id="projektErnedo">
+  <div class="proj-wrap">
+    <a href="#projekte" class="back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      &#8593; zur&uuml;ck
+    </a>
+    <div class="proj-head">
+      <div class="proj-logo-box"><svg viewBox="0 0 52 52" width="44"><polygon points="26,2 50,14 50,38 26,50 2,38 2,14" fill="#4c4c4c"/><text x="10" y="32" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="15" fill="white">ER</text></svg></div>
+      <div>
+        <p class="proj-num">Projekt 06 &middot; Herbstsemester 2026/27</p>
+        <h2 class="proj-title">Ernedo Verein &ndash; Digitale Inklusion und soziale Innovation</h2>
+        <p class="proj-tag">Technologiel&ouml;sungen f&uuml;r soziale Organisationen zur F&ouml;rderung der digitalen Teilhabe</p>
+      </div>
+    </div>
+    <div class="proj-cols">
+      <div class="proj-card"><div class="card-label"><span class="card-letter">A</span>Ausgangslage</div><h3 class="card-h3">Soziale Verantwortung</h3><div class="card-body"><p>Der Ernedo Verein engagiert sich f&uuml;r die soziale und digitale Inklusion. Als Non-Profit-Organisation mit begrenzten Ressourcen stehen Herausforderungen bei der Verwaltung von Mitgliedern, Koordination von Freiwilligen und Kommunikation mit Beh&ouml;rden im Vordergrund.</p></div></div>
+      <div class="proj-card"><div class="card-label"><span class="card-letter">B</span>Zielsetzung</div><h3 class="card-h3">Impact durch Technologie</h3><div class="card-body"><p>Entwicklung kosteneffizienter digitaler L&ouml;sungen: Mitglieder- und Freiwilligenportal oder automatisierte Kommunikationsplattform. Das Projekt demonstriert den Einsatz von Open-Source-Technologien ohne grosse Budgets.</p></div></div>
+      <div class="proj-card"><div class="card-label"><span class="card-letter">C</span>Vorgehensweise</div><h3 class="card-h3">Co-Design</h3><div class="card-body"><p>Co-Design-Workshops und Usability-Tests in enger Zusammenarbeit mit dem Ernedo-Team und Betroffenen. Laufzeit: September 2026 &ndash; Februar 2027. Betreuung: Prof. Dr. Andreas Lorenz, FHNW.</p></div></div>
+    </div>
+    <div class="proj-apply">
+      <a href="#bewerbungErnedo" class="btn-apply">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Hierf&uuml;r bewerben
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROJEKT 7: ITRIS One AG
+     ============================================================ -->
+<section class="proj-section" id="projektItris">
+  <div class="proj-wrap">
+    <a href="#projekte" class="back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      &#8593; zur&uuml;ck
+    </a>
+    <div class="proj-head">
+      <div class="proj-logo-box"><svg viewBox="0 0 52 52" width="44"><rect width="52" height="52" rx="4" fill="#000000"/><text x="8" y="34" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="20" fill="#fde70e">IT</text></svg></div>
+      <div>
+        <p class="proj-num">Projekt 07 &middot; Herbstsemester 2026/27</p>
+        <h2 class="proj-title">ITRIS One AG &ndash; CRM-Innovation und Automatisierung</h2>
+        <p class="proj-tag">KI-Integration in ein bestehendes CRM-System f&uuml;r optimierte Kundenbeziehungsprozesse</p>
+      </div>
+    </div>
+    <div class="proj-cols">
+      <div class="proj-card"><div class="card-label"><span class="card-letter">A</span>Ausgangslage</div><h3 class="card-h3">CRM der n&auml;chsten Generation</h3><div class="card-body"><p>Die ITRIS One AG entwickelt ein spezialisiertes CRM-System f&uuml;r den Schweizer Markt. Kundenseitig steigt der Erwartungsdruck an intelligente Funktionen wie automatische Datenvervollst&auml;ndigung, Gespr&auml;chszusammenfassungen oder predictive Lead-Scoring.</p></div></div>
+      <div class="proj-card"><div class="card-label"><span class="card-letter">B</span>Zielsetzung</div><h3 class="card-h3">KI-Features evaluieren</h3><div class="card-body"><p>Systematische Evaluation und prototypische Implementierung ausgew&auml;hlter KI-Features: automatisierte E-Mail-Zusammenfassungen, smarte Erinnerungen, Sentiment-Analyse, KI-gest&uuml;tztes Kontaktmanagement. Ergebnis: dokumentierter Proof-of-Concept.</p></div></div>
+      <div class="proj-card"><div class="card-label"><span class="card-letter">C</span>Vorgehensweise</div><h3 class="card-h3">API-Integration &amp; Testing</h3><div class="card-body"><p>ITRIS-One-API analysieren, KI-Dienste (OpenAI, Azure AI) integrieren, Features iterativ entwickeln und mit Nutzern evaluieren. Stack: REST API, Python/TypeScript, LLM APIs. Laufzeit bis Februar 2027.</p></div></div>
+    </div>
+    <div class="proj-apply">
+      <a href="#bewerbungItris" class="btn-apply">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Hierf&uuml;r bewerben
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROJEKT 8: Burki Scherer AG
+     ============================================================ -->
+<section class="proj-section" id="projektBurki">
+  <div class="proj-wrap">
+    <a href="#projekte" class="back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      &#8593; zur&uuml;ck
+    </a>
+    <div class="proj-head">
+      <div class="proj-logo-box"><svg viewBox="0 0 52 52" width="44"><rect width="52" height="52" fill="#4c4c4c"/><text x="4" y="34" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="16" fill="#fde70e">B+S</text></svg></div>
+      <div>
+        <p class="proj-num">Projekt 08 &middot; Herbstsemester 2026/27</p>
+        <h2 class="proj-title">Burki Scherer AG &ndash; KI in der Kreativwirtschaft</h2>
+        <p class="proj-tag">Integration generativer KI in Kreativprozesse einer Full-Service-Agentur mit 40 Jahren Erfahrung</p>
+      </div>
+    </div>
+    <div class="proj-cols">
+      <div class="proj-card"><div class="card-label"><span class="card-letter">A</span>Ausgangslage</div><h3 class="card-h3">Kreativit&auml;t trifft KI</h3><div class="card-body"><p>Die Burki Scherer AG ist eine Full-Service-Werbeagentur aus Oftringen mit 26 kreativen K&ouml;pfen und &uuml;ber 40 Jahren Erfahrung in Strategie, Design, Content, 3D-Visualisierung und Web. Bereits auf KI-Kurs: von KI-Videos bis AI-Supported Workflows.</p></div></div>
+      <div class="proj-card"><div class="card-label"><span class="card-letter">B</span>Zielsetzung</div><h3 class="card-h3">KI-Strategie entwickeln</h3><div class="card-body"><p>Strukturierte KI-Strategie f&uuml;r Burki Scherer: Kreativprozesse auf KI-Potenziale untersuchen, KI-Tool-Stack evaluieren, Roadmap erstellen. Optional: Prototyp f&uuml;r Content-Briefing-Automatisierung oder Brand-Voice-Konsistenzpr&uuml;fung.</p></div></div>
+      <div class="proj-card"><div class="card-label"><span class="card-letter">C</span>Vorgehensweise</div><h3 class="card-h3">Analyse &amp; Prototyping</h3><div class="card-body"><p>Workflow-Analyse via Workshops und Prozessinterviews &rarr; KI-Tool-Benchmarking &rarr; Proof-of-Concept. Enge Zusammenarbeit mit dem Kreativteam. Laufzeit bis Februar 2027. Betreuung: Prof. Dr. Andreas Lorenz.</p></div></div>
+    </div>
+    <div class="proj-apply">
+      <a href="#bewerbungBurki" class="btn-apply">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Hierf&uuml;r bewerben
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="footer-logo-mark"><span>FH</span></div>
+      <span class="footer-brand">FHNW</span>
+    </div>
+    <div class="footer-sep"></div>
+    <div class="footer-info">
+      <strong style="color:#eee">Vertiefungsrichtung Digital Engineering</strong><br>
+      Hochschule f&uuml;r Technik &middot; Wirtschaftsingenieurwesen<br>
+      Bahnhofstrasse 6, 5210 Windisch<br>
+      <a href="mailto:andreas.lorenz@fhnw.ch">andreas.lorenz@fhnw.ch</a> &middot;
+      <a href="https://www.fhnw.ch" target="_blank" rel="noopener">www.fhnw.ch</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 FHNW<br>Alle Rechte vorbehalten</div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     BEWERBUNGSMODALS (CSS :target — kein JavaScript)
+     Jedes Modal enthält einen Microsoft Forms iFrame.
+     HINWEIS: Ersetzen Sie die src-URL durch Ihren eigenen
+     Microsoft Forms Link (forms.office.com/r/XXXXXXXX)
+     ============================================================ -->
+
+<!-- MODAL: ELCO -->
+<div class="modal-overlay" id="bewerbungElco">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title">Bewerbung: ELCO Group</span>
+      <a href="#projektElco" class="modal-close" title="Schliessen">&times;</a>
+    </div>
+    <div class="modal-body">
+      <!-- *** HIER IHREN MICROSOFT FORMS LINK EINFÜGEN ***
+           Erstellen Sie in Microsoft Forms ein Formular mit den Feldern:
+           Projekt (vorausgefüllt), Name, E-Mail, Name 2. Person, E-Mail 2. Person
+           und ersetzen Sie die URL unten. -->
+      <iframe
+        src="https://forms.cloud.microsoft/e/mMZQmJLdjN?embed=true&r_r79141a079d5146f49f25a1297ceedc3e=ELCO%20Group"
+        title="Bewerbungsformular ELCO Group"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: FHNW BI -->
+<div class="modal-overlay" id="bewerbungBi">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title">Bewerbung: FHNW Projektportfolio BI</span>
+      <a href="#projektBi" class="modal-close" title="Schliessen">&times;</a>
+    </div>
+    <div class="modal-body">
+      <iframe
+        src="https://forms.cloud.microsoft/e/mMZQmJLdjN?embed=true&r_r79141a079d5146f49f25a1297ceedc3e=FHNW%20Projektportfolio%20BI"
+        title="Bewerbungsformular FHNW BI"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Ansatz AG -->
+<div class="modal-overlay" id="bewerbungAnsatz">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title">Bewerbung: Ansatz AG</span>
+      <a href="#projektAnsatz" class="modal-close" title="Schliessen">&times;</a>
+    </div>
+    <div class="modal-body">
+      <iframe
+        src="https://forms.cloud.microsoft/e/mMZQmJLdjN?embed=true&r_r79141a079d5146f49f25a1297ceedc3e=Ansatz%20AG"
+        title="Bewerbungsformular Ansatz AG"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: KI-Tutor -->
+<div class="modal-overlay" id="bewerbungKitutor">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title">Bewerbung: FHNW KI-Tutor</span>
+      <a href="#projektKitutor" class="modal-close" title="Schliessen">&times;</a>
+    </div>
+    <div class="modal-body">
+      <iframe
+        src="https://forms.cloud.microsoft/e/mMZQmJLdjN?embed=true&r_r79141a079d5146f49f25a1297ceedc3e=FHNW%20KI-Tutor"
+        title="Bewerbungsformular KI-Tutor"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Assisto -->
+<div class="modal-overlay" id="bewerbungAssisto">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title">Bewerbung: Assisto Holding AG</span>
+      <a href="#projektAssisto" class="modal-close" title="Schliessen">&times;</a>
+    </div>
+    <div class="modal-body">
+      <iframe
+        src="https://forms.cloud.microsoft/e/mMZQmJLdjN?embed=true&r_r79141a079d5146f49f25a1297ceedc3e=Assisto%20Holding%20AG"
+        title="Bewerbungsformular Assisto"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Ernedo -->
+<div class="modal-overlay" id="bewerbungErnedo">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title">Bewerbung: Ernedo Verein</span>
+      <a href="#projektErnedo" class="modal-close" title="Schliessen">&times;</a>
+    </div>
+    <div class="modal-body">
+      <iframe
+        src="https://forms.cloud.microsoft/e/mMZQmJLdjN?embed=true&r_r79141a079d5146f49f25a1297ceedc3e=Ernedo%20Verein"
+        title="Bewerbungsformular Ernedo Verein"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: ITRIS -->
+<div class="modal-overlay" id="bewerbungItris">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title">Bewerbung: ITRIS One AG</span>
+      <a href="#projektItris" class="modal-close" title="Schliessen">&times;</a>
+    </div>
+    <div class="modal-body">
+      <iframe
+        src="https://forms.cloud.microsoft/e/mMZQmJLdjN?embed=true&r_r79141a079d5146f49f25a1297ceedc3e=ITRIS%20One%20AG"
+        title="Bewerbungsformular ITRIS One AG"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Burki Scherer -->
+<div class="modal-overlay" id="bewerbungBurki">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title">Bewerbung: Burki Scherer AG</span>
+      <a href="#projektBurki" class="modal-close" title="Schliessen">&times;</a>
+    </div>
+    <div class="modal-body">
+      <iframe
+        src="https://forms.cloud.microsoft/e/mMZQmJLdjN?embed=true&r_r79141a079d5146f49f25a1297ceedc3e=Burki%20Scherer%20AG"
+        title="Bewerbungsformular Burki Scherer AG"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
