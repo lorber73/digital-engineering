@@ -681,9 +681,432 @@ h1, h2, h3 { line-height: 1.15; }
   .proj-section { break-before: page; }
   .modal-overlay { display: none !important; }
 }
+
+/* ============================================================
+   LOGIN OVERLAY
+   ============================================================ */
+#loginOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  overflow: hidden;
+}
+
+/* Animierter Hintergrund */
+#loginOverlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(253,231,14,0.13) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 70%, rgba(253,231,14,0.07) 0%, transparent 60%);
+  animation: loginPulse 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes loginPulse {
+  0%   { opacity: 0.6; transform: scale(1); }
+  100% { opacity: 1;   transform: scale(1.08); }
+}
+
+/* Gitter-Overlay */
+#loginOverlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(253,231,14,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(253,231,14,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+
+.login-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 460px;
+  margin: 20px;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(253,231,14,0.18);
+  border-radius: 20px;
+  padding: 48px 44px 40px;
+  box-shadow:
+    0 0 0 1px rgba(253,231,14,0.08),
+    0 32px 80px rgba(0,0,0,0.6),
+    0 0 80px rgba(253,231,14,0.06);
+  animation: loginFadeIn 0.6s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes loginFadeIn {
+  from { opacity:0; transform: translateY(24px) scale(0.97); }
+  to   { opacity:1; transform: translateY(0)    scale(1); }
+}
+
+/* Logo-Bereich */
+.login-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.login-logo-mark {
+  width: 44px; height: 44px;
+  background: #fde70e;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(253,231,14,0.35);
+}
+.login-logo-mark span {
+  font-weight: 900; font-size: 16px; color: #000; letter-spacing: -0.5px;
+}
+.login-logo-text strong {
+  display: block; font-size: 18px; font-weight: 900; color: #fde70e; line-height: 1;
+}
+.login-logo-text small {
+  display: block; font-size: 10px; font-weight: 500; color: #666;
+  letter-spacing: 0.08em; text-transform: uppercase; margin-top: 3px;
+}
+
+/* Trennlinie */
+.login-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(253,231,14,0.25), transparent);
+  margin-bottom: 28px;
+}
+
+/* Headline */
+.login-title {
+  font-size: 22px; font-weight: 800; color: #fff;
+  letter-spacing: -0.03em; line-height: 1.25; margin-bottom: 8px;
+}
+.login-sub {
+  font-size: 13.5px; color: #888; line-height: 1.65; margin-bottom: 28px;
+}
+.login-sub strong { color: #bbb; font-weight: 600; }
+
+/* Formular */
+.login-field {
+  margin-bottom: 14px;
+}
+.login-field label {
+  display: block; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: #666; margin-bottom: 7px;
+}
+.login-field input {
+  width: 100%; padding: 12px 16px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  color: #fff; font-size: 14px; font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.login-field input::placeholder { color: #444; }
+.login-field input:focus {
+  border-color: rgba(253,231,14,0.5);
+  background: rgba(253,231,14,0.05);
+  box-shadow: 0 0 0 3px rgba(253,231,14,0.08);
+}
+
+/* Fehlermeldung */
+.login-error {
+  display: none;
+  font-size: 12px; color: #df305b;
+  background: rgba(223,48,91,0.1);
+  border: 1px solid rgba(223,48,91,0.25);
+  border-radius: 8px; padding: 10px 14px;
+  margin-bottom: 14px;
+}
+.login-error.show { display: block; }
+
+/* Buttons */
+.login-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+}
+.login-btns .btn-full { grid-column: 1 / -1; }
+
+.btn-login-primary {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: #fde70e; color: #000;
+  font-size: 14px; font-weight: 800;
+  padding: 13px 20px; border-radius: 10px; border: none;
+  cursor: pointer; font-family: inherit; letter-spacing: 0.01em;
+  box-shadow: 0 4px 20px rgba(253,231,14,0.3);
+  transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+.btn-login-primary:hover {
+  background: #e6d000;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px rgba(253,231,14,0.4);
+}
+
+.btn-login-secondary {
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  background: rgba(255,255,255,0.06); color: #aaa;
+  font-size: 13px; font-weight: 600;
+  padding: 13px 16px; border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer; font-family: inherit;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.btn-login-secondary:hover {
+  background: rgba(255,255,255,0.1); color: #fff;
+  border-color: rgba(255,255,255,0.2);
+}
+
+.btn-login-request {
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  background: transparent; color: #fde70e;
+  font-size: 13px; font-weight: 700;
+  padding: 13px 16px; border-radius: 10px;
+  border: 1px solid rgba(253,231,14,0.3);
+  cursor: pointer; font-family: inherit;
+  transition: background 0.15s, border-color 0.15s;
+}
+.btn-login-request:hover {
+  background: rgba(253,231,14,0.08);
+  border-color: rgba(253,231,14,0.6);
+}
+
+/* Footer mit LinkedIn */
+.login-footer {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.login-footer-text {
+  font-size: 11px; color: #555; line-height: 1.5;
+}
+.login-footer-text strong { color: #777; display: block; }
+
+.login-linkedin {
+  display: flex; align-items: center; gap: 7px;
+  background: rgba(10,102,194,0.15);
+  border: 1px solid rgba(10,102,194,0.35);
+  color: #5ba4f5; font-size: 12px; font-weight: 600;
+  padding: 8px 14px; border-radius: 8px;
+  text-decoration: none; white-space: nowrap; flex-shrink: 0;
+  transition: background 0.15s, border-color 0.15s;
+}
+.login-linkedin:hover {
+  background: rgba(10,102,194,0.28);
+  border-color: rgba(10,102,194,0.6);
+  color: #7bbeff;
+}
+.login-linkedin svg { flex-shrink: 0; }
+
+/* Zugangsbeantragungs-Dialog */
+#requestOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(4px);
+}
+#requestOverlay.show { display: flex; }
+
+.request-card {
+  width: 100%; max-width: 400px; margin: 20px;
+  background: #111;
+  border: 1px solid rgba(253,231,14,0.2);
+  border-radius: 16px; padding: 36px 36px 32px;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.7);
+  animation: loginFadeIn 0.3s cubic-bezier(0.16,1,0.3,1) both;
+}
+.request-title {
+  font-size: 18px; font-weight: 800; color: #fff;
+  margin-bottom: 8px; letter-spacing: -0.02em;
+}
+.request-sub {
+  font-size: 13px; color: #777; line-height: 1.6; margin-bottom: 22px;
+}
+.request-note {
+  font-size: 12px; color: #555; margin-top: 14px; line-height: 1.6;
+}
+
 </style>
 </head>
 <body>
+
+<!-- ============================================================
+     LOGIN OVERLAY
+     ============================================================ -->
+<div id="loginOverlay">
+  <div class="login-card">
+
+    <!-- Logo -->
+    <div class="login-logo">
+      <div class="login-logo-mark"><span>FH</span></div>
+      <div class="login-logo-text">
+        <strong>FHNW</strong>
+        <small>Fachhochschule Nordwestschweiz</small>
+      </div>
+    </div>
+
+    <div class="login-divider"></div>
+
+    <!-- Headline -->
+    <p class="login-title">Willkommen im Projektportal</p>
+    <p class="login-sub">
+      Dieses Portal informiert &uuml;ber offene P5-Projekte der<br>
+      <strong>Vertiefungsrichtung Digital Engineering.</strong><br>
+      Bitte authentifizieren Sie sich f&uuml;r den Zugang.
+    </p>
+
+    <!-- Formular -->
+    <div class="login-field">
+      <label>E-Mail-Adresse</label>
+      <input type="email" id="loginEmail" placeholder="vorname.nachname@fhnw.ch" autocomplete="email"/>
+    </div>
+    <div class="login-field">
+      <label>Passwort</label>
+      <input type="password" id="loginPassword" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" autocomplete="current-password"
+             onkeydown="if(event.key==='Enter') doLogin()"/>
+    </div>
+
+    <div class="login-error" id="loginError">
+      Falsches Passwort oder ung&uuml;ltige E-Mail-Adresse. Bitte versuchen Sie es erneut.
+    </div>
+
+    <!-- Buttons -->
+    <div class="login-btns">
+      <button class="btn-login-primary btn-full" onclick="doLogin()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Zugang
+      </button>
+      <button class="btn-login-secondary" onclick="doCancel()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        Abbrechen
+      </button>
+      <button class="btn-login-request" onclick="showRequest()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Zugang beantragen
+      </button>
+    </div>
+
+    <!-- Footer -->
+    <div class="login-footer">
+      <div class="login-footer-text">
+        <strong>Prof. Dr. Andreas Lorenz</strong>
+        Vertiefungsrichtungsleiter Digital Engineering
+      </div>
+      <a href="https://www.linkedin.com/in/andreas-lorenz-7501a895/"
+         target="_blank" rel="noopener" class="login-linkedin">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+        LinkedIn
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Zugang-beantragen Dialog -->
+<div id="requestOverlay">
+  <div class="request-card">
+    <p class="request-title">Zugang beantragen</p>
+    <p class="request-sub">
+      Bitte geben Sie Ihre g&uuml;ltige <strong style="color:#fde70e">FHNW-E-Mail-Adresse</strong> ein.
+      Das Passwort wird Ihnen anschliessend zugestellt.
+    </p>
+    <div class="login-field">
+      <label>Ihre FHNW-E-Mail</label>
+      <input type="email" id="requestEmail" placeholder="vorname.nachname@students.fhnw.ch"
+             onkeydown="if(event.key==='Enter') sendRequest()"/>
+    </div>
+    <div class="login-btns">
+      <button class="btn-login-primary" onclick="sendRequest()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        Anfrage senden
+      </button>
+      <button class="btn-login-secondary" onclick="closeRequest()">Schliessen</button>
+    </div>
+    <p class="request-note">
+      Ihre Anfrage wird per E-Mail an Prof. Dr. Andreas Lorenz weitergeleitet.
+      Sie erhalten das Passwort in K&uuml;rze.
+    </p>
+  </div>
+</div>
+
+<script>
+(function() {
+  const PW = '123_Digital_Engineering:bin_dabei!';
+
+  window.doLogin = function() {
+    const email = document.getElementById('loginEmail').value.trim();
+    const pw    = document.getElementById('loginPassword').value;
+    const err   = document.getElementById('loginError');
+
+    if (!email || !pw) {
+      err.textContent = 'Bitte E-Mail-Adresse und Passwort eingeben.';
+      err.classList.add('show');
+      return;
+    }
+    if (pw === PW) {
+      document.getElementById('loginOverlay').style.display = 'none';
+      err.classList.remove('show');
+    } else {
+      err.textContent = 'Falsches Passwort oder ungültige E-Mail-Adresse. Bitte versuchen Sie es erneut.';
+      err.classList.add('show');
+      document.getElementById('loginPassword').value = '';
+      document.getElementById('loginPassword').focus();
+    }
+  };
+
+  window.doCancel = function() {
+    document.getElementById('loginEmail').value    = '';
+    document.getElementById('loginPassword').value = '';
+    document.getElementById('loginError').classList.remove('show');
+  };
+
+  window.showRequest = function() {
+    document.getElementById('requestOverlay').classList.add('show');
+    setTimeout(() => document.getElementById('requestEmail').focus(), 100);
+  };
+
+  window.closeRequest = function() {
+    document.getElementById('requestOverlay').classList.remove('show');
+    document.getElementById('requestEmail').value = '';
+  };
+
+  window.sendRequest = function() {
+    const email = document.getElementById('requestEmail').value.trim();
+    if (!email || !email.includes('@')) {
+      alert('Bitte eine gültige E-Mail-Adresse eingeben.');
+      return;
+    }
+    const subject = encodeURIComponent('Zugangsantrag Digital Engineering Projektportal');
+    const body    = encodeURIComponent(
+      'Guten Tag Herr Lorenz,\n\n' +
+      'ich möchte Zugang zum Digital Engineering Projektportal beantragen.\n\n' +
+      'Meine FHNW-E-Mail-Adresse: ' + email + '\n\n' +
+      'Bitte senden Sie mir das Passwort zu.\n\n' +
+      'Freundliche Grüsse'
+    );
+    window.location.href = 'mailto:andreas.lorenz@fhnw.ch?subject=' + subject + '&body=' + body;
+    closeRequest();
+  };
+})();
+</script>
+
 
 <!-- ============================================================
      HEADER
@@ -864,10 +1287,19 @@ h1, h2, h3 { line-height: 1.15; }
       <span class="tile-cat">Gesundheitswesen &amp; KI</span>
       <svg class="tile-arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
-    <div class="tile tile-ph">
-      <div class="tile-logo"><svg viewBox="0 0 60 36"><rect x="8" y="6" width="44" height="24" rx="4" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/><text x="22" y="23" font-family="Arial" font-size="13" fill="#bbb">?</text></svg></div>
-      <span class="tile-name">Folgt in K&uuml;rze</span><span class="tile-cat">Projekt 10</span>
-    </div>
+    <a href="#projektKnecht" class="tile">
+      <div class="tile-logo">
+        <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="4" width="36" height="32" rx="4" fill="#1a1a1a"/>
+          <text x="5" y="27" font-family="Inter,Arial,sans-serif" font-weight="900" font-size="16" fill="#ffffff">KBH</text>
+          <text x="42" y="18" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="11" fill="#1a1a1a">KNECHT</text>
+          <text x="42" y="32" font-family="Inter,Arial,sans-serif" font-weight="500" font-size="10" fill="#4c4c4c">BRUGG HOLDING</text>
+        </svg>
+      </div>
+      <span class="tile-name">Knecht Brugg Holding AG</span>
+      <span class="tile-cat">Cloud &amp; KI-Strategie</span>
+      <svg class="tile-arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
     <div class="tile tile-ph">
       <div class="tile-logo"><svg viewBox="0 0 60 36"><rect x="8" y="6" width="44" height="24" rx="4" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/><text x="22" y="23" font-family="Arial" font-size="13" fill="#bbb">?</text></svg></div>
       <span class="tile-name">Folgt in K&uuml;rze</span><span class="tile-cat">Projekt 11</span>
@@ -954,7 +1386,7 @@ h1, h2, h3 { line-height: 1.15; }
         <div class="card-label"><span class="card-letter">C</span>Vorgehensweise</div>
         <h3 class="card-h3">Projektplan</h3>
         <div class="card-body">
-          <p>Das Projekt wird von Studierenden im 5. Semester Wirtschaftsingenieurwesen durchgef&uuml;hrt</p>
+          <p>Das Projekt wird von Studierenden im 5. Semester Wirtschaftsingenieurwesen durchgef&uuml;hrt,</p>
           <p>Laufzeit: <strong>14. September 2026 &ndash; 5. Februar 2027</strong>. Zuteilung bis 10. Juni 2026. Umfang: IST-Analyse, KI-Reifegraderhebung, Feasibility-Matrix, Prototyp, Pr&auml;sentation.</p>
         </div>
       </div>
@@ -988,7 +1420,7 @@ h1, h2, h3 { line-height: 1.15; }
     <div class="proj-cols">
       <div class="proj-card"><div class="card-label"><span class="card-letter">A</span>Ausgangslage</div><h3 class="card-h3">Interne Hochschulprozesse</h3><div class="card-body"><p>Die FHNW verwaltet als Fachhochschule mit &uuml;ber 10 Hochschulen und mehreren tausend Studierenden eine grosse Menge an Prozess- und Projektdaten. Diese liegen in verschiedenen Systemen verteilt vor und werden manuell ausgewertet.</p><p>Im Bereich der Studierendenprojekte fehlt eine zentrale Auswertung des Projektportfolios &uuml;ber Semester hinweg.</p></div></div>
       <div class="proj-card"><div class="card-label"><span class="card-letter">B</span>Zielsetzung</div><h3 class="card-h3">BI-L&ouml;sung entwickeln</h3><div class="card-body"><p>Ziel ist die Entwicklung einer Business Intelligence L&ouml;sung f&uuml;r eine systematische Auswertung und Visualisierung des FHNW-Projektportfolios. Kennzahlen zu Projektstatus, Partnerzufriedenheit und Studierendenleistung sollen auf interaktiven Dashboards zug&auml;nglich sein.</p></div></div>
-      <div class="proj-card"><div class="card-label"><span class="card-letter">C</span>Vorgehensweise</div><h3 class="card-h3">Schrittweise Umsetzung</h3><div class="card-body"><p>Drei Phasen: Datenerhebung &amp; -strukturierung, ETL-Prozessentwicklung sowie Dashboard-Implementierung. Technologiestack: Power BI oder Tableau mit relationaler Datenbank.</p><p>Laufzeit: September 2026 &ndash; Februar 2027</p></div></div>
+      <div class="proj-card"><div class="card-label"><span class="card-letter">C</span>Vorgehensweise</div><h3 class="card-h3">Schrittweise Umsetzung</h3><div class="card-body"><p>Drei Phasen: Datenerhebung &amp; -strukturierung, ETL-Prozessentwicklung sowie Dashboard-Implementierung. Technologiestack: Power BI oder Tableau mit relationaler Datenbank.</p><p>Laufzeit: September 2026 &ndash; Februar 2027,</p></div></div>
     </div>
     <div class="proj-apply">
       <a href="#bewerbungBi" class="btn-apply">
@@ -1019,7 +1451,7 @@ h1, h2, h3 { line-height: 1.15; }
     <div class="proj-cols">
       <div class="proj-card"><div class="card-label"><span class="card-letter">A</span>Ausgangslage</div><h3 class="card-h3">Implizites Wissen sichern</h3><div class="card-body"><p>Die Ansatz AG betreibt die Plattform <strong>firmen-nachfolge-verkauf.ch</strong> f&uuml;r Unternehmensnachfolge und -verkauf. Bei jedem Unternehmens&uuml;bergang geht wertvolles, implizites Erfahrungswissen der abtretenden Unternehmer verloren &ndash; Wissen, das sich kaum in Dokumenten erfassen l&auml;sst.</p><p>Dieses von <strong>InnoSuisse gef&ouml;rderte F&amp;E-Projekt</strong> adressiert genau diese L&uuml;cke mit KI-gest&uuml;tzten Socially Interactive Agents (SIAs), die auf LLM-, RAG- und Chain-of-Thought-Technologien basieren.</p></div></div>
       <div class="proj-card"><div class="card-label"><span class="card-letter">B</span>Zielsetzung</div><h3 class="card-h3">SIA-Prototyp entwickeln</h3><div class="card-body"><p>Ziel ist die Entwicklung eines <strong>agentischen KI-Systems</strong>, das Unternehmer in empathischen, nat&uuml;rlichsprachlichen Dialogen begleitet und dabei implizites Erfahrungswissen externalisiert und strukturiert &uuml;bertr&auml;gt.</p><p>Der SIA soll mittels CoT-Prompting gezielte R&uuml;ckfragen stellen, via RAG auf Unternehmensdaten zugreifen und als skalierbarer Wissenstr&auml;ger f&uuml;r Nachfolgerinnen und Nachfolger dienen.</p></div></div>
-      <div class="proj-card"><div class="card-label"><span class="card-letter">C</span>Vorgehensweise</div><h3 class="card-h3">F&amp;E im P5-Rahmen</h3><div class="card-body"><p>Studierende arbeiten aktiv im InnoSuisse-Forschungsprojekt mit: Anforderungsanalyse, LLM/RAG-Architektur, SIA-Prototyping, Evaluation mit echten Nutzenden der Plattform.</p><p>Laufzeit: <strong>September 2026 &ndash; Februar 2027</strong>. Einzigartiger Einblick in ein laufendes InnosuisseForschungsprojekt.</p></div></div>
+      <div class="proj-card"><div class="card-label"><span class="card-letter">C</span>Vorgehensweise</div><h3 class="card-h3">F&amp;E im P5-Rahmen</h3><div class="card-body"><p>Studierende arbeiten aktiv im InnoSuisse-Forschungsprojekt mit: Anforderungsanalyse, LLM/RAG-Architektur, SIA-Prototyping, Evaluation mit echten Nutzenden der Plattform.</p><p>Laufzeit: <strong>September 2026 &ndash; Februar 2027</strong>. Einzigartiger Einblick in ein laufendes Forschungsprojekt.</p></div></div>
     </div>
     <div class="proj-apply">
       <a href="#bewerbungAnsatz" class="btn-apply">
@@ -1112,7 +1544,7 @@ h1, h2, h3 { line-height: 1.15; }
     <div class="proj-cols">
       <div class="proj-card"><div class="card-label"><span class="card-letter">A</span>Ausgangslage</div><h3 class="card-h3">Soziale Verantwortung</h3><div class="card-body"><p>Der Ernedo Verein engagiert sich f&uuml;r die soziale und digitale Inklusion. Als Non-Profit-Organisation mit begrenzten Ressourcen stehen Herausforderungen bei der Verwaltung von Mitgliedern, Koordination von Freiwilligen und Kommunikation mit Beh&ouml;rden im Vordergrund.</p></div></div>
       <div class="proj-card"><div class="card-label"><span class="card-letter">B</span>Zielsetzung</div><h3 class="card-h3">Impact durch Technologie</h3><div class="card-body"><p>Entwicklung kosteneffizienter digitaler L&ouml;sungen: Mitglieder- und Freiwilligenportal oder automatisierte Kommunikationsplattform. Das Projekt demonstriert den Einsatz von Open-Source-Technologien ohne grosse Budgets.</p></div></div>
-      <div class="proj-card"><div class="card-label"><span class="card-letter">C</span>Vorgehensweise</div><h3 class="card-h3">Co-Design</h3><div class="card-body"><p>Co-Design-Workshops und Usability-Tests in enger Zusammenarbeit mit dem Ernedo-Team und Betroffenen. Laufzeit: September 2026 &ndash; Februar 2027. </p></div></div>
+      <div class="proj-card"><div class="card-label"><span class="card-letter">C</span>Vorgehensweise</div><h3 class="card-h3">Co-Design</h3><div class="card-body"><p>Co-Design-Workshops und Usability-Tests in enger Zusammenarbeit mit dem Ernedo-Team und Betroffenen. Laufzeit: September 2026 &ndash; Februar 2027.</p></div></div>
     </div>
     <div class="proj-apply">
       <a href="#bewerbungErnedo" class="btn-apply">
@@ -1256,7 +1688,7 @@ h1, h2, h3 { line-height: 1.15; }
             &bull; die Effizienz der Prozesse nachweisbar zu steigern
           </p>
           <p style="margin-top:10px;font-size:13px;color:var(--grau);border-top:1px solid var(--mouseover);padding-top:10px;">
-            Coach: Wunschcoach möglich, die finale Zuteilung des Coaches erfolgt durch die Vertiefungsrichtungsleitung.
+            Coach: Wunschcoach m&ouml;glich, die finale Zuteilung des Coaches erfolgt durch die Vertiefungsrichtungsleitung in Abh&auml;ngigkeit von fachlicher Eignung und verf&uuml;gbarer Kapazit&auml;t.
           </p>
         </div>
       </div>
@@ -1275,6 +1707,89 @@ h1, h2, h3 { line-height: 1.15; }
 
     <div class="proj-apply">
       <a href="#bewerbungEmedo" class="btn-apply">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Hierf&uuml;r bewerben
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROJEKT 10: Knecht Brugg Holding AG
+     ============================================================ -->
+<section class="proj-section" id="projektKnecht">
+  <div class="proj-wrap">
+    <a href="#projekte" class="back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      &#8593; zur&uuml;ck
+    </a>
+    <div class="proj-head">
+      <div class="proj-logo-box">
+        <svg viewBox="0 0 80 44" width="72">
+          <rect x="0" y="2" width="36" height="32" rx="4" fill="#1a1a1a"/>
+          <text x="5" y="24" font-family="Inter,Arial,sans-serif" font-weight="900" font-size="14" fill="#ffffff">KBH</text>
+          <text x="40" y="16" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="11" fill="#1a1a1a">KNECHT</text>
+          <text x="40" y="30" font-family="Inter,Arial,sans-serif" font-weight="400" font-size="9" fill="#4c4c4c">BRUGG HOLDING</text>
+        </svg>
+      </div>
+      <div>
+        <p class="proj-num">Projekt 10 &middot; Herbstsemester 2026/27 &middot; Themenfeld: Data Sciences</p>
+        <h2 class="proj-title">Knecht Brugg Holding AG &ndash; Evaluation einer Cloud- und Hybrid-IT-Strategie</h2>
+        <p class="proj-tag">
+          Strategische IT-Entscheidungsgrundlage f&uuml;r eine Schweizer Holding: On-Premises vs. Cloud vs. Hybrid &ndash;
+          unter Ber&uuml;cksichtigung von KI-Potenzialen (z.&nbsp;B. Microsoft&nbsp;365 Copilot) &ndash;
+          Projektpartner: <a href="https://www.kbh.ch" target="_blank" rel="noopener" style="color:var(--dunkelgrau);text-decoration:underline">Knecht Brugg Holding AG</a>, Aarauerstrasse&nbsp;51, 5200&nbsp;Brugg
+        </p>
+      </div>
+    </div>
+
+    <div class="proj-cols">
+      <div class="proj-card">
+        <div class="card-label"><span class="card-letter">A</span>Ausgangslage</div>
+        <h3 class="card-h3">On-Premises-Betrieb vor dem Wandel</h3>
+        <div class="card-body">
+          <p>Die <strong>Knecht Brugg Holding AG</strong> ist eine traditionsreiche Schweizer Holding mit Wurzeln im Jahr 1909 und rund 180 Mitarbeitenden. Das Unternehmen ist in den Bereichen Abbruch, Aushub, Strassen- und Tiefbau sowie Werkleitungsbau t&auml;tig und betreibt seine IT-Infrastruktur gegenw&auml;rtig gr&ouml;sstenteils lokal (On-Premises).</p>
+          <p>Vor dem Hintergrund zunehmender Digitalisierung, steigender Anforderungen an Flexibilit&auml;t und neuer technologischer M&ouml;glichkeiten &ndash; insbesondere Cloud Computing und KI (z.&nbsp;B. Microsoft&nbsp;365 Copilot) &ndash; stellt sich die strategische Frage, ob dieses Modell noch zeitgem&auml;ss ist.</p>
+          <p>Zus&auml;tzlich stellt sich vor dem Hintergrund geopolitischer Entwicklungen die Frage, ob ein st&auml;rker On-Premises-orientierter Ansatz hinsichtlich Unabh&auml;ngigkeit und Datenkontrolle weiterhin Vorteile bieten k&ouml;nnte.</p>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="card-label"><span class="card-letter">B</span>Zielsetzung</div>
+        <h3 class="card-h3">Fundierte IT-Entscheidungsgrundlage</h3>
+        <div class="card-body">
+          <p>Das Projekt liefert eine strukturierte Entscheidungsgrundlage f&uuml;r die zuk&uuml;nftige IT-Strategie der Holding. Im Einzelnen:</p>
+          <p>
+            &bull; IST-Analyse der bestehenden IT-Landschaft<br>
+            &bull; Strukturierter Vergleich On-Premises / Cloud / Hybrid (Vor- und Nachteile)<br>
+            &bull; Quantitative &amp; qualitative Kostenanalyse &uuml;ber 3&ndash;5 Jahre (TCO/ROI)<br>
+            &bull; Bewertung von Sicherheit, Risiken und Abh&auml;ngigkeiten<br>
+            &bull; Analyse von KI-Potenzialen in der Cloud (Microsoft&nbsp;365 Copilot u.&nbsp;a.)<br>
+            &bull; Empfehlung einer Zielarchitektur inkl. m&ouml;glichem Hybrid-Szenario<br>
+            &bull; Grobe Migrations-Roadmap (Zeit, Ressourcen, Aufwand)
+          </p>
+          <p style="margin-top:10px;font-size:13px;color:var(--grau);border-top:1px solid var(--mouseover);padding-top:10px;">
+            Coach: Wunschcoach m&ouml;glich, die finale Zuteilung des Coaches erfolgt durch die Vertiefungsrichtungsleitung in Abh&auml;ngigkeit von fachlicher Eignung und verf&uuml;gbarer Kapazit&auml;t.
+          </p>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="card-label"><span class="card-letter">C</span>Vorgehensweise</div>
+        <h3 class="card-h3">Analyse &rarr; Benchmarking &rarr; Empfehlung</h3>
+        <div class="card-body">
+          <p><strong>1. IT-Landschaftsaufnahme:</strong> Bestandsaufnahme der bestehenden Systeme, Infrastruktur und Anwendungen bei der Knecht Brugg Holding.</p>
+          <p><strong>2. Stakeholder-Interviews:</strong> Strukturierte Gespr&auml;che mit IT, Fachbereichen und Management zur Bedarfserhebung.</p>
+          <p><strong>3. Benchmarking:</strong> Best-Practice-Analyse vergleichbarer KMU und Holding-Strukturen (Cloud-Readiness, Sicherheitsanforderungen, Datenschutz CH/EU).</p>
+          <p><strong>4. Wirtschaftlichkeitsanalyse:</strong> TCO-/ROI-Berechnung &uuml;ber einen Zeitraum von 3&ndash;5 Jahren f&uuml;r alle drei Szenarien.</p>
+          <p><strong>5. Szenarienentwicklung &amp; Empfehlung:</strong> Ableitung einer fundierten Handlungsempfehlung mit Migrations-Roadmap.</p>
+          <p style="margin-top:8px;"><em>Abgrenzung: Keine operative Migration; Fokus auf strategische und konzeptionelle Betrachtung. Laufzeit: <strong>September 2026 &ndash; Februar 2027</strong>.</em></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-apply">
+      <a href="#bewerbungKnecht" class="btn-apply">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
         Hierf&uuml;r bewerben
       </a>
@@ -1509,6 +2024,31 @@ h1, h2, h3 { line-height: 1.15; }
         Bitte erg&auml;nzen Sie Ihren Namen und Ihre E-Mail-Adresse im vorbereiteten Textfeld.
       </p>
       <a href="mailto:andreas.lorenz@fhnw.ch?subject=Bewerbung%20P5-Projekt%3A%20emedo%20/%20Verein%20Stammgemeinschaft%20eHealth%20Aargau&body=Guten%20Tag%0A%0Aich%20m%C3%B6chte%20mich%20f%C3%BCr%20das%20folgende%20P5-Projekt%20bewerben%3A%0A%0AProjekt%3A%20Verwendung%20von%20KI%20in%20den%20digitalen%20Gesch%C3%A4ftsprozessen%20zwischen%20den%20Gesundheitsorganisationen%0AProjektpartner%3A%20Verein%20Stammgemeinschaft%20eHealth%20Aargau%20%28emedo%29%2C%20Aarau%0A%0A---%20Person%201%20%28Pflichtfelder%29%20---%0AMein%20Name%3A%20%5BVorname%20Nachname%5D%0AMeine%20E-Mail%3A%20%5BE-Mail-Adresse%5D%0A%0A---%20Person%202%20%28optional%29%20---%0AName%3A%20%5BVorname%20Nachname%5D%0AE-Mail%3A%20%5BE-Mail-Adresse%5D%0A%0AFreundliche%20Gr%C3%BCsse%0A%5BIhr%20Name%5D"
+         style="display:inline-flex;align-items:center;gap:10px;background:var(--schwarz);color:var(--gelb);font-size:15px;font-weight:800;padding:14px 28px;border-radius:999px;border:2px solid var(--gelb);text-decoration:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Outlook &ouml;ffnen &amp; bewerben
+      </a>
+      <p style="font-size:12px;color:var(--grau);margin-top:16px;">
+        Ihre Bewerbung wird direkt an Prof. Dr. Andreas Lorenz gesendet. Vielen Dank f&uuml;r Ihr Interesse.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Knecht Brugg Holding AG -->
+<div class="modal-overlay" id="bewerbungKnecht">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title">Bewerbung: Knecht Brugg Holding AG</span>
+      <a href="#projektKnecht" class="modal-close" title="Schliessen">&times;</a>
+    </div>
+    <div class="modal-body" style="padding:32px;">
+      <p style="font-size:15px;color:var(--dunkelgrau);margin-bottom:20px;line-height:1.7;">
+        Klicken Sie auf den Button unten. Es &ouml;ffnet sich Outlook mit einer vorausgef&uuml;llten
+        E-Mail f&uuml;r das Projekt <strong>Knecht Brugg Holding &ndash; Cloud &amp; Hybrid-IT-Strategie</strong>.<br>
+        Bitte erg&auml;nzen Sie Ihren Namen und Ihre E-Mail-Adresse im vorbereiteten Textfeld.
+      </p>
+      <a href="mailto:andreas.lorenz@fhnw.ch?subject=Bewerbung%20P5-Projekt%3A%20Knecht%20Brugg%20Holding%20AG%20%E2%80%93%20Cloud%20%26%20KI-Strategie&body=Guten%20Tag%0A%0Aich%20m%C3%B6chte%20mich%20f%C3%BCr%20das%20folgende%20P5-Projekt%20bewerben%3A%0A%0AProjekt%3A%20Evaluation%20einer%20Cloud-%20und%20Hybrid-IT-Strategie%20f%C3%BCr%20eine%20Holding%0AProjektpartner%3A%20Knecht%20Brugg%20Holding%20AG%2C%20Aarauerstrasse%2051%2C%205200%20Brugg%0A%0A---%20Person%201%20%28Pflichtfelder%29%20---%0AMein%20Name%3A%20%5BVorname%20Nachname%5D%0AMeine%20E-Mail%3A%20%5BE-Mail-Adresse%5D%0A%0A---%20Person%202%20%28optional%29%20---%0AName%3A%20%5BVorname%20Nachname%5D%0AE-Mail%3A%20%5BE-Mail-Adresse%5D%0A%0AFreundliche%20Gr%C3%BCsse%0A%5BIhr%20Name%5D"
          style="display:inline-flex;align-items:center;gap:10px;background:var(--schwarz);color:var(--gelb);font-size:15px;font-weight:800;padding:14px 28px;border-radius:999px;border:2px solid var(--gelb);text-decoration:none;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         Outlook &ouml;ffnen &amp; bewerben
